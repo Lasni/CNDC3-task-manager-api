@@ -15,7 +15,7 @@ router.post('/users', async (req, res) => {
     const token = await user.generateAuthToken();
     res.status(201).send({ user, token });
   } catch (e) {
-    res.status(500).send(e);
+    res.status(400).send(e);
   }
   // user
   //   .save()
@@ -90,7 +90,7 @@ router.patch('/users/me', auth, async (req, res) => {
     await req.user.save();
     res.send(req.user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(400).send(e);
   }
 });
 
@@ -101,7 +101,7 @@ router.delete('/users/me', auth, async (req, res) => {
     sendCancelationEmail(req.user.email, req.user.name)
     res.send(req.user);
   } catch (e) {
-    res.status(500).send(e);
+    res.status(401).send(e);
   }
 });
 
